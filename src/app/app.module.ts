@@ -18,6 +18,7 @@ import { AppComponent } from './app.component';
 import { LogginComponent } from './loggin/loggin.component';
 import { HttpClientModule }   from '@angular/common/http';
 import { MainComponent } from './main/main.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 const material = [
   MatButtonModule,
@@ -44,7 +45,8 @@ const material = [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule
   ],
   providers: [  ],
   bootstrap: [AppComponent]
