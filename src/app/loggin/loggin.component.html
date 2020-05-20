@@ -1,0 +1,16 @@
+<div class="loggin-card">
+    <div class="block-element">
+        <div class="element-name">Логін</div>
+        <div class="element-input-block">
+            <input matInput class="element-input" [(ngModel)]="loggin" />
+        </div>
+    </div>
+    <div class="block-element">
+        <div class="element-name">Пароль</div>
+        <div class="element-input-block">
+            <input matInput class="element-input" type="password" [(ngModel)]="password" />
+        </div>
+    </div>
+    <div *ngIf="!LogginResult" style="color: red; font-size: 20px;">Невірний логін або пароль!</div>
+    <button mat-button class="action-button" (click)="OnLoggin()">Увійти</button>
+</div>

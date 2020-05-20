@@ -1,0 +1,65 @@
+@mixin neo-container-shadows {
+    border-radius: 7px;
+    background: #ffffff;
+    box-shadow: 10px 10px 56px #c4c4c4, -10px -10px 56px #ffffff;
+}
+
+.main-background {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    background-color: #ededef;
+}
+
+.action-button {
+    width: 100%;
+    height: 40px;
+    background-color: #20b45d;
+    font-family: ProximaNova;
+    font-size: 15px;
+    color: #ffffff;
+}
+
+.dissable-button {
+    width: 100%;
+    height: 40px;
+    background-color: #bdbebd;
+    font-family: ProximaNova;
+    font-size: 15px;
+    color: #000000;
+}
+
+.block-element {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 76px;
+}
+
+.element-name {
+    width: 100%;
+    font-family: ProximaNova;
+    font-size: 20px;
+    color: #000000;
+    margin-bottom: 12px;
+}
+
+.element-input-block {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 46px;
+}
+
+.element-input {
+    width: 100%;
+    height: 100%;
+    border: solid 1px #c2ceda;
+    background-color: white !important;
+    font-size: 28px;
+}
