@@ -15,6 +15,8 @@ export class LogginService {
   private UserLoad() {
     if (localStorage.getItem("User")) {
       this.UserData = JSON.parse(localStorage.getItem("User"));
+    } else {
+      this.Exit();
     }
   }
 
@@ -58,6 +60,7 @@ export class LogginService {
   public Exit() {
     this.UserData = undefined;
     this.LogginResult = true;
+    localStorage.removeItem("User");
     this.router.navigate(['loggin']);
   }
 }
