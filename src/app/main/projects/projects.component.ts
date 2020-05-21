@@ -21,8 +21,8 @@ export class ProjectsComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  private projectsData: Project[] = [];
-  private projectIndex: number = 0;
+  public projectsData: Project[] = [];
+  public projectIndex: number = 0;
 
   private projectSelect(index: number){
     this.projectIndex = index;
