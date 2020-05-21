@@ -19,6 +19,12 @@ import { LogginComponent } from './loggin/loggin.component';
 import { HttpClientModule }   from '@angular/common/http';
 import { MainComponent } from './main/main.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProjectsComponent } from './main/projects/projects.component';
+import { QueriesComponent } from './main/queries/queries.component';
+import { ClientsComponent } from './main/clients/clients.component';
+import { ServiciesComponent } from './main/servicies/servicies.component';
+import { ProjectActionComponent } from './main/projects/project-action/project-action.component';
+import { QueryActionComponent } from './main/queries/query-action/query-action.component';
 
 const material = [
   MatButtonModule,
@@ -38,7 +44,13 @@ const material = [
   declarations: [
     AppComponent,
     LogginComponent,
-    MainComponent
+    MainComponent,
+    ProjectsComponent,
+    QueriesComponent,
+    ClientsComponent,
+    ServiciesComponent,
+    ProjectActionComponent,
+    QueryActionComponent
   ],
   imports: [
     material,

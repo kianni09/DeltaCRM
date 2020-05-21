@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LogginService } from '../loggin/loggin.service';
+import { MainService } from './main.service';
+import { Project } from './main.models';
+
+
 
 @Component({
   selector: 'app-main',
@@ -8,10 +12,12 @@ import { LogginService } from '../loggin/loggin.service';
 })
 export class MainComponent implements OnInit {
 
-  constructor(private logService: LogginService) { 
+  constructor(private logService: LogginService, private mainService: MainService) { 
     if (!this.User) {
       this.logService.Exit();
     }
+    this.mainService.loadProjects(this.User.id);
+    
   }
 
   get User () {

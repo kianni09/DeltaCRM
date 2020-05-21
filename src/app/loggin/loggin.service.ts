@@ -13,15 +13,16 @@ export class LogginService {
   }
 
   private UserLoad() {
-    if (localStorage.getItem("User")) {
-      this.UserData = JSON.parse(localStorage.getItem("User"));
+    if (localStorage.getItem('User')) {
+      this.UserData = JSON.parse(localStorage.getItem('User'));
+      this.router.navigate(['main']);
     } else {
       this.Exit();
     }
   }
 
   private UserSave() {
-    localStorage.setItem("User", JSON.stringify(this.UserData));
+    localStorage.setItem('User', JSON.stringify(this.UserData));
   }
 
   public logginBehavior$ = new BehaviorSubject(undefined);
@@ -32,7 +33,7 @@ export class LogginService {
         if (data) {
           this.LogginResult = true;
           this.UserData = data;
-          this.UserSave()
+          this.UserSave();
           this.router.navigate(['main']);
         } else {
           this.LogginResult = data;
@@ -60,7 +61,7 @@ export class LogginService {
   public Exit() {
     this.UserData = undefined;
     this.LogginResult = true;
-    localStorage.removeItem("User");
+    localStorage.removeItem('User');
     this.router.navigate(['loggin']);
   }
 }
