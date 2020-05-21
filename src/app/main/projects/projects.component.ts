@@ -24,7 +24,7 @@ export class ProjectsComponent implements OnInit {
   public projectsData: Project[] = [];
   public projectIndex: number = 0;
 
-  private projectSelect(index: number){
+  public projectSelect(index: number){
     this.projectIndex = index;
   }
 
