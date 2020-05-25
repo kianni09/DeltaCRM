@@ -26,7 +26,7 @@ export interface Query {
     client_name: string,
     query: string,
     query_id: string,
-    services: QueryService[],
+    servicies: QueryService[],
     status: boolean
 }
 
