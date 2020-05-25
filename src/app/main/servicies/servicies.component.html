@@ -1,1 +1,30 @@
-<p>servicies works!</p>
+<div [ngClass]="{ 'servicies-action-list': !serviciesStatus, 'servicies-action-create': serviciesStatus }">
+
+    <div class="neo-container-head">
+        <div class="header-text">{{serviciesStatus?'Додати послугу':'Послуги'}}</div>
+        <div class="header-icons">
+            <mat-icon *ngIf="!serviciesStatus" class="icon" (click)="create()">add</mat-icon>
+            <mat-icon *ngIf="serviciesStatus" class="icon" (click)="back()">reply</mat-icon>
+            <mat-icon *ngIf="serviciesStatus" class="icon" (click)="save()">save</mat-icon>
+            <mat-icon *ngIf="!serviciesStatus" class="icon" (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+
+    <div class="neo-container-body">
+
+        <div *ngIf="!serviciesStatus" class="servicies-list">
+            <div *ngFor="let service of serviciesData" class="service-label">
+                <span class="label-text">{{service.name}}</span>
+                <mat-icon class="service-icon" (click)="delete(service)">clear</mat-icon>
+
+            </div>
+        </div>
+
+        <mat-form-field *ngIf="serviciesStatus" class="block-element">
+            <mat-label class="element-name">Назва послуги</mat-label>
+            <input class="element-input" matInput [(ngModel)]="serviceName">
+        </mat-form-field>
+
+    </div>
+
+</div>

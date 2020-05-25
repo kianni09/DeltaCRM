@@ -18,7 +18,17 @@
 
     <div class="main-card">
         <projects></projects>
-        <queries></queries>
+        <queries style="width: calc(100% - 371px); height: 100%;"></queries>
+    </div>
+
+    <div *ngIf="blurTemplate" class="action-background">
+        <project-action *ngIf="window.project"></project-action>
+        <servicies *ngIf="window.servicies"></servicies>
+        <clients *ngIf="window.clients"></clients>
+
+
+        <i *ngIf="onDataLoad" class="fa fa-spinner fa-pulse" style="color: white; font-size: 100px;"></i>
+
     </div>
 
 </div>

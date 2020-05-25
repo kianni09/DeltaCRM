@@ -2,22 +2,22 @@
 
     <div class="projects-head">
         <span class="projects-head-text">Проекти</span>
-        <mat-icon class="projects-head-servicies-icon">menu_open</mat-icon>
+        <mat-icon class="projects-head-servicies-icon" (click)="projectAction('servicies'); $event.stopPropagation()">device_hub</mat-icon>
     </div>
 
     <div class="projects-labels">
         <div *ngFor="let project of projectsData; let i=index" (click)="projectSelect(i)" [ngClass]="{'projects-label': true, 'projects-label-selected': projectIndex == i, 'projects-label-nonselected': projectIndex != i}">
             <span class="projects-head-text">{{project.name}}</span>
             <div class="project-icons">
-                <mat-icon class="project-icon">group</mat-icon>
-                <mat-icon class="project-icon">create</mat-icon>
-                <mat-icon class="project-icon">clear</mat-icon>
+                <mat-icon class="project-icon" (click)="projectAction('clients', project); $event.stopPropagation()">group</mat-icon>
+                <mat-icon class="project-icon" (click)="projectAction('edit', project); $event.stopPropagation()">create</mat-icon>
+                <mat-icon class="project-icon" (click)="projectAction('delete', project); $event.stopPropagation()">clear</mat-icon>
             </div>
         </div>
-        <div style="width: 100%; height: 60px;"></div>
+        <div style="width: 100%; height: 60px; "></div>
 
     </div>
-    <button mat-fab class="project-add-button">
+    <button mat-fab class="project-add-button" (click)="projectAction('create'); $event.stopPropagation()">
         <mat-icon>add</mat-icon>
     </button>
 

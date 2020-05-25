@@ -1,11 +1,8 @@
 @import '../app.component.scss';
 //Loggin styles
 .loggin-card {
-    @include neo-container-shadows;
-    display: flex;
-    flex-direction: column;
+    @include neo-container;
     justify-content: space-around;
-    align-content: center;
     width: 350px;
     height: 280px;
     padding: 40px;
