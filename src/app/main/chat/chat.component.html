@@ -1,0 +1,25 @@
+<div class="chat-container">
+
+    <div class="neo-container-head">
+        <div class="header-text">Чат</div>
+        <mat-icon class="chat-close-icon" (click)="close()">clear</mat-icon>
+    </div>
+
+    <div class="chat-body">
+        <div class="chat-messages">
+            <div *ngFor="let message of messagesData; let i=index" class="message">
+                <div class="head">
+                    <div>{{message.user_name}}</div>
+                    <div style="margin-right: 15px;">{{message.date | date: 'HH:mm:ss (dd.MM.yyyy)'}}</div>
+                </div>
+                <div class="text">{{message.text}}</div>
+            </div>
+        </div>
+        <mat-form-field class="block-element" style="position: relative; width: calc(100% - 30px);">
+            <mat-label class="element-name">Повідомлення</mat-label>
+            <input class="element-input" matInput [(ngModel)]="message" (keyup.enter)="sendMessage()">
+            <mat-icon class="message-send-icon" (click)="sendMessage() ;$event.stopPropagation()">send</mat-icon>
+        </mat-form-field>
+    </div>
+
+</div>

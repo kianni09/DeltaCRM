@@ -17,6 +17,8 @@ import {
 export class MainService {
   constructor(private http: HttpClient, private logService: LogginService) {}
 
+  public newMessages: boolean = false;
+
   public projectIndex: number = 0;
   public projectID: string = '';
 
@@ -50,6 +52,7 @@ export class MainService {
     delete: false,
     clients: false,
     servicies: false,
+    chat: false
   };
 
   public projectOnAction: Project = null;

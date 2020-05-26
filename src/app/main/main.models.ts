@@ -46,3 +46,11 @@ export interface QueryRow {
     servicies: QueryService[],
     status: boolean
 }
+
+export interface Message {
+    message_id?: number | string,
+    user_id: number | string,
+    user_name: string,
+    date: Date,
+    text: string
+}
