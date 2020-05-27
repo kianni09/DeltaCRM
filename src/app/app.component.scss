@@ -1,12 +1,3 @@
-@mixin neo-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    border-radius: 7px;
-    background: #ffffff;
-    box-shadow: 10px 10px 56px #c4c4c4, -10px -10px 56px #ffffff;
-}
-
 @mixin line-center {
     display: flex;
     flex-direction: row;
@@ -19,19 +10,24 @@
 }
 
 @mixin custom-scrollbar {
-    scrollbar-color: #1f4386 rgba(0, 0, 0, 0.082);
-    scrollbar-width: thin;
+    scrollbar-color: #1f4386 rgba(0, 0, 0, 0.082) !important;
+    scrollbar-width: thin !important;
     &::-webkit-scrollbar {
-        width: 3px;
+        width: 3px !important;
     }
     &::-webkit-scrollbar-thumb {
-        border-radius: 10px;
-        -webkit-box-shadow: inset 0 0 6px #1f4386;
+        border-radius: 10px !important;
+        -webkit-box-shadow: inset 0 0 6px #1f4386 !important;
     }
     &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.082);
-        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.082) !important;
+        border-radius: 10px !important;
     }
+}
+
+::ng-deep .mat-select-panel {
+    @include custom-scrollbar;
+    overflow: auto;
 }
 
 @import '~@angular/material/theming';
@@ -45,6 +41,15 @@ $custom-typography: mat-typography-config( $font-family: 'Montserrat');
     width: 100%;
     height: 100%;
     background-color: #ededef;
+}
+
+@mixin neo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 7px;
+    background: #ffffff;
+    box-shadow: 10px 10px 56px #c4c4c4, -10px -10px 56px #ffffff;
 }
 
 .neo-container-head {
@@ -284,20 +289,20 @@ $custom-typography: mat-typography-config( $font-family: 'Montserrat');
 
 .status-switcher {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    width: 40px;
-    height: 20px;
-    padding: 0px 5px;
-    margin-bottom: 15px;
-    border-radius: 10px;
-    border: 2px solid rgba(0, 0, 0, 0.5);
+    width: 32px;
+    height: 22px;
+    margin-bottom: 30px;
+    border-radius: 11px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
     cursor: pointer;
     .point {
         display: block;
         border-radius: 50%;
-        width: 16px;
-        height: 16px;
-        background-color: white;
-        border: 1px solid rgba(0, 0, 0, 0.4);
+        width: 18px;
+        height: 18px;
+        background: linear-gradient(145deg, #ffffff, #e6e6e6);
+        border: 1px solid rgba(0, 0, 0, 0.1);
     }
 }

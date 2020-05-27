@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { Observable, BehaviorSubject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Message } from '../main.models';
 
 @Injectable({
@@ -22,7 +22,6 @@ export class ChatService {
     this.socket.emit('new-message', message);
   }
 
-  public chatMessages$ =  new BehaviorSubject([]);
   public getMessages() {
     return Observable.create((observer) => {
       this.socket.on('get-messages', (messages: Message[]) => {

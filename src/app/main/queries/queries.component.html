@@ -15,7 +15,7 @@
                 <mat-icon style="font-size: 18px;" [inline]="true">{{dataTable.getSortArrowStyle('date')}}</mat-icon>
             </div>
             <div class="table-head-cell" style="width: 20%;" (click)="dataTable.sort('term')">
-                <span>Терміновість</span>
+                <span>Тип</span>
                 <mat-icon style="font-size: 18px;" [inline]="true">{{dataTable.getSortArrowStyle('term')}}</mat-icon>
             </div>
             <div class="table-head-cell" style="width: 20%;" (click)="dataTable.sort('client_name')">
@@ -34,13 +34,13 @@
     </div>
 
     <div class="table-body">
-        <div *ngFor="let row of dataTable.data" class="table-row">
+        <div *ngFor="let row of dataTable.data" class="table-row" (click)="action(row); $event.stopPropagation()">
             <div class="row-main">
                 <div class="table-row-cell cases-column">
-                    <div class="table-row-cell-label">Дата запиту</div>{{row.date}}
+                    <div class="table-row-cell-label">Дата запиту</div>{{dataView(row.date)}}
                 </div>
                 <div class="table-row-cell cases-column">
-                    <div class="table-row-cell-label">Терміновість</div>{{row.term}}
+                    <div class="table-row-cell-label">Тип</div>{{row.term}}
                 </div>
                 <div class="table-row-cell cases-column">
                     <div class="table-row-cell-label">Замовник</div>{{row.client_name}}
@@ -61,7 +61,7 @@
                 <div class="status-switcher" (click)="row.status = !row.status; $event.stopPropagation()" [ngStyle]="row.status?{'flex-direction': 'row-reverse', 'background-color':'#1f4386'}:{'flex-direction': 'row', 'background-color':'rgba(255, 255, 255, 0.3)'}">
                     <div class="point"></div>
                 </div>
-                <mat-icon class="delete-icon" (click)=" $event.stopPropagation()">clear</mat-icon>
+                <mat-icon class="delete-icon" (click)=" $event.stopPropagation()">delete</mat-icon>
 
             </div>
         </div>
@@ -75,7 +75,7 @@
         <button mat-button *ngIf="(dataTable.pageIndex < (dataTable.totalPages - 3)) && dataTable.totalPages > 5 " [disabled]="true">...</button>
         <button mat-button *ngIf="dataTable.totalPages > 1" [ngStyle]="(dataTable.pageIndex == ( dataTable.totalPages - 1 )) ? {'background-color': '#ebf2f9'} : {'background-color': 'transparent'}" (click)="dataTable.updatePageManual(dataTable.totalPages-1)">{{dataTable.totalPages}}</button>
         <button mat-button [disabled]='dataTable.pageIndex == ( dataTable.totalPages > 0 ? (dataTable.totalPages - 1) : (0) )' (click)="dataTable.nextPage()"><mat-icon >arrow_forward_ios</mat-icon></button>
-        <button mat-fab class="project-add-button" (click)="$event.stopPropagation()">
+        <button mat-fab class="project-add-button" (click)="action(undefined); $event.stopPropagation()">
             <mat-icon>add</mat-icon>
         </button>
     </div>

@@ -15,7 +15,7 @@
         <div *ngIf="!clientsStatus" class="servicies-list">
             <div *ngFor="let client of clientsData" class="service-label">
                 <span class="label-text">{{client.name}}</span>
-                <mat-icon class="service-icon" (click)="delete(client)">clear</mat-icon>
+                <mat-icon class="service-icon" (click)="delete(client)">delete</mat-icon>
 
             </div>
         </div>

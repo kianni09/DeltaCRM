@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from "@angular/material/table";
@@ -62,7 +63,8 @@ const material = [
     HttpClientModule,
     BrowserAnimationsModule
   ],
-  providers: [  ],
+  exports: [],
+  providers: [ DatePipe, MatDatepickerModule ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

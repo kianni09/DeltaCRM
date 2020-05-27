@@ -21,6 +21,9 @@ export class MainService {
 
   public projectIndex: number = 0;
   public projectID: string = '';
+  get userID () {
+    return this.logService.User.id;
+  }
 
   public getProjects$ = new BehaviorSubject<Project[]>([]);
 
@@ -52,7 +55,8 @@ export class MainService {
     delete: false,
     clients: false,
     servicies: false,
-    chat: false
+    chat: false,
+    query: false
   };
 
   public projectOnAction: Project = null;
@@ -124,6 +128,8 @@ export class MainService {
     });
   }
 
+  public selectedQuery: QueryRow = undefined;
+
   public getQueries$ = new BehaviorSubject<QueryRow[]>([]);
 
   public loadQueries(request: any) {
@@ -139,4 +145,6 @@ export class MainService {
         }
       });
   }
+
+ 
 }

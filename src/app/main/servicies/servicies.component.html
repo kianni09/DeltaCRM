@@ -15,7 +15,7 @@
         <div *ngIf="!serviciesStatus" class="servicies-list">
             <div *ngFor="let service of serviciesData" class="service-label">
                 <span class="label-text">{{service.name}}</span>
-                <mat-icon class="service-icon" (click)="delete(service)">clear</mat-icon>
+                <mat-icon class="service-icon" (click)="delete(service)">delete</mat-icon>
 
             </div>
         </div>

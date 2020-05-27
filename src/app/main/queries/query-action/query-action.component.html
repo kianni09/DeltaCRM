@@ -1,1 +1,68 @@
-<p>query-action works!</p>
+<div class="query-action-container">
+
+    <div class="neo-container-head">
+        <div class="header-text">{{selectedQuery?'Редагувати запит':'Новий запит'}}</div>
+        <div class="header-icons">
+            <mat-icon class="icon" (click)="save()">save</mat-icon>
+            <mat-icon class="icon" (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+
+
+    <div class="neo-container-body">
+        <div class="query-inputs">
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Дата запиту</mat-label>
+                <input class="element-input" matInput [matDatepicker]="picker" [(ngModel)]="queryBody.date">
+                <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 40px; height: 40px;"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Замовник</mat-label>
+                <mat-select class="element-input" [(value)]="queryBody.client_name">
+                    <mat-option *ngFor="let client of clients" [value]="client.name">
+                        {{client.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Тип</mat-label>
+                <mat-select class="element-input" [(value)]="queryBody.term">
+                    <mat-option *ngFor="let type of queryTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Назва/Ім'я</mat-label>
+                <input class="element-input" matInput [(ngModel)]="queryBody.query">
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">ЄДРПОУ/ІПН</mat-label>
+                <input class="element-input" matInput [(ngModel)]="queryBody.query_id">
+            </mat-form-field>
+        </div>
+        <div class="query-servicies">
+            <div class="head">
+                <div class="text">Послуги</div>
+                <mat-icon class="icon">add</mat-icon>
+            </div>
+            <div class="body">
+                <div *ngFor="let service of queryBody.servicies" class="label">
+                    <div class="text-block">
+                        <div>{{service.service_name}}</div>
+                        <div>{{service.comment}}</div>
+                    </div>
+                    <mat-icon class="icon" (click)=" $event.stopPropagation()">delete</mat-icon>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

@@ -21,7 +21,7 @@ export interface QueryTemplate {
 
 export interface Query {
     project_id: string,
-    date: string,
+    date: Date,
     term: string,
     client_name: string,
     query: string,
@@ -38,7 +38,7 @@ export interface QueryService {
 export interface QueryRow {
     id: string,
     project_id: string,
-    date: string,
+    date: Date,
     term: string,
     client_name: string,
     query: string,
