@@ -177,22 +177,32 @@ export class MainService {
   }
 
   public getReport(request: any) {
-    let fileName = `${this.projectName}_${request.client}_${this.datepipe.transform(request.date_from, 'dd.MM.yyyy')}-${this.datepipe.transform(request.date_along, 'dd.MM.yyyy')}.csv`;
+    let fileName = `${this.projectName}_${
+      request.client
+    }_${this.datepipe.transform(
+      request.date_from,
+      'dd.MM.yyyy'
+    )}-${this.datepipe.transform(request.date_along, 'dd.MM.yyyy')}.csv`;
     console.log(fileName);
     this.http
       .post(environment.queries, request)
       .subscribe((data: QueryTemplate[]) => {
         let onLoad = data.map((query: QueryTemplate) => {
-          return `${this.datepipe.transform(query.body.date, 'dd.MM.yyyy')};${query.body.term};${query.body.query};${query.body.query_id};${query.body.servicies
+          return `${this.datepipe.transform(query.body.date, 'dd.MM.yyyy')};${
+            query.body.term
+          };${query.body.query};${query.body.query_id};${query.body.servicies
             .map((ser: QueryService) => {
               return `${ser.service_name}: ${ser.comment}`;
             })
             .join(',')}`;
         });
-        let csv = ["Дата запиту;Тип;Назва/Ім'я;ЄДРПОУ/ІПН;Послуги", ...onLoad].join("\r\n")
-        console.log(csv);
-        var blob = new Blob([csv], {type: 'text/plain;charset=cp1252' })
+        let csv = [
+          "Дата запиту;Тип;Назва/Ім'я;ЄДРПОУ/ІПН;Послуги",
+          ...onLoad,
+        ].join('\r\n');
+        var blob = new Blob([csv], { type: 'text/plain;charset=cp1251' });
         saveAs(blob, fileName);
       });
   }
+
 }

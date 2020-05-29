@@ -450,3 +450,15 @@
         flex-direction: column;
     }
 }
+
+.servicies-button {
+    @include line-center;
+    cursor: pointer;
+    font-size: 20px;
+    font-weight: 600;
+    color: #1f4386;
+    opacity: 0.5;
+    &:hover {
+        opacity: 1;
+    }
+}

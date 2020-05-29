@@ -10,9 +10,7 @@ export class ChatService {
   private url = 'http://95.181.178.7:9020';
   private socket = io(this.url, { transport: ['websocket'] });
 
-  constructor() {
-    
-  }
+  constructor() {}
 
   public initMessages() {
     this.socket.emit('new-message', 'get');

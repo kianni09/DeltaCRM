@@ -2,7 +2,10 @@
 
     <div class="projects-head">
         <span class="projects-head-text">Проекти</span>
-        <mat-icon class="projects-head-servicies-icon" (click)="projectAction('servicies'); $event.stopPropagation()">device_hub</mat-icon>
+        <div>|</div>
+        <div class="servicies-button" (click)="projectAction('servicies'); $event.stopPropagation()">
+            Послуги
+        </div>
     </div>
 
     <div class="projects-labels">

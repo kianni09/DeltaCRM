@@ -22,13 +22,18 @@ export class MainComponent implements OnInit {
     this.mainService.loadServicies(this.User.id);
     this.chatService.getMessages().subscribe((messages: Message[]) => {
       if (!this.mainService.windowsAction.chat) {
-        console.log('got messages');
-        this.mainService.newMessages = true;
+        if (JSON.stringify(messages) != JSON.stringify(this.chatPull) && this.chatPull.length > 0 ) {
+          console.log('got messages');
+          this.mainService.newMessages = true;
+        }
+        this.chatPull = messages;
       }
     });
   }
 
-  get newMessages (): boolean {
+  private chatPull: Message[] = [];
+
+  get newMessages(): boolean {
     return this.mainService.newMessages;
   }
 
