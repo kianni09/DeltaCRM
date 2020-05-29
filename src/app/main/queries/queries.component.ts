@@ -51,4 +51,30 @@ export class QueriesComponent implements OnInit {
     this.mainService.windowsAction.query = true;
   }
 
+  public delete (query: QueryRow) {
+    let request = {
+      id: query.id,
+      user_id: this.user.id,
+      delete: true
+    }
+    this.mainService.actionQuery(request);
+  }
+
+  public statusChange (query: QueryRow) {
+    let request = {
+      id: query.id,
+      user_id: this.user.id,
+      change_status: true,
+      status: !query.status
+    }
+    this.mainService.statusQuery(request);
+    query.status = !query.status;
+  }
+  
+  public getReport () {
+    this.mainService.loadClients(this.user.id, this.projectID);
+    this.mainService.blurTemplate = true;
+    this.mainService.windowsAction.report = true;
+  }
+
 }

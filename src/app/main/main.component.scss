@@ -56,7 +56,8 @@
     box-shadow: 9px 9px 18px #bababa, -9px -9px 18px #ffffff63;
     display: flex;
     flex-direction: row;
-    height: calc(100% - 65px);
+    flex: none;
+    height: calc(100% - 105px);
     padding: 20px;
     position: relative;
     z-index: 10;
@@ -163,6 +164,10 @@
     bottom: -10px;
     right: 10px;
     background-color: #1f4386;
+    box-shadow: none;
+    &:hover {
+        box-shadow: 10px 10px 15px #d6d6d6, -10px -10px 15px #ffffff;
+    }
 }
 
 .project-action-container {
@@ -323,7 +328,7 @@
 .query-action-container {
     @include neo-container;
     width: 800px;
-    height: 600px;
+    height: 500px;
     position: relative;
     .neo-container-head {
         .header-icons {
@@ -410,5 +415,38 @@
                 }
             }
         }
+    }
+    .service-background {
+        @include line-center;
+        justify-content: center;
+        width: 100vw;
+        height: 100vh;
+        background-color: rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(5px);
+        position: fixed;
+        top: 0px;
+        left: 0px;
+        .service-action {
+            @include neo-container;
+            width: 400px;
+            height: 250px;
+            .neo-container-head {
+                .header-icons {
+                    width: 20%;
+                }
+            }
+            .neo-container-body {
+                flex-direction: column;
+            }
+        }
+    }
+}
+
+.report-action {
+    @include neo-container;
+    width: 400px;
+    height: 350px;
+    .neo-container-body {
+        flex-direction: column;
     }
 }

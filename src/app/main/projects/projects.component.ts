@@ -36,6 +36,7 @@ export class ProjectsComponent implements OnInit {
   public projectSelect(index: number){
     this.mainService.projectIndex = index;
     this.mainService.projectID = this.projectsData[this.projectIndex]._id;
+    this.mainService.projectName = this.projectsData[this.projectIndex].name;
     let data = {
       user_id: this.user.id,
       get: true,

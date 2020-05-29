@@ -27,6 +27,7 @@ import { ServiciesComponent } from './main/servicies/servicies.component';
 import { ProjectActionComponent } from './main/projects/project-action/project-action.component';
 import { QueryActionComponent } from './main/queries/query-action/query-action.component';
 import { ChatComponent } from './main/chat/chat.component';
+import { ReportComponent } from './main/report/report.component';
 
 const material = [
   MatButtonModule,
@@ -53,7 +54,8 @@ const material = [
     ServiciesComponent,
     ProjectActionComponent,
     QueryActionComponent,
-    ChatComponent
+    ChatComponent,
+    ReportComponent
   ],
   imports: [
     material,

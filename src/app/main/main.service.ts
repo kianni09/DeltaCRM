@@ -3,6 +3,7 @@ import { LogginService } from '../loggin/loggin.service';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from '../../environments/environment.prod';
+import { QueryService } from './main.models';
 import {
   Project,
   Service,
@@ -10,18 +11,25 @@ import {
   QueryTemplate,
   QueryRow,
 } from './main.models';
+import { DatePipe } from '@angular/common';
+import { saveAs } from 'file-saver';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MainService {
-  constructor(private http: HttpClient, private logService: LogginService) {}
+  constructor(
+    private http: HttpClient,
+    private logService: LogginService,
+    private datepipe: DatePipe
+  ) {}
 
   public newMessages: boolean = false;
 
   public projectIndex: number = 0;
   public projectID: string = '';
-  get userID () {
+  public projectName: string = '';
+  get userID() {
     return this.logService.User.id;
   }
 
@@ -56,7 +64,8 @@ export class MainService {
     clients: false,
     servicies: false,
     chat: false,
-    query: false
+    query: false,
+    report: false,
   };
 
   public projectOnAction: Project = null;
@@ -146,5 +155,44 @@ export class MainService {
       });
   }
 
- 
+  public actionQuery(request: any) {
+    this.http.post(environment.queries, request).subscribe((data: boolean) => {
+      if (data) {
+        let getQueries = {
+          user_id: this.userID,
+          get: true,
+          body: {
+            project_id: this.projectID,
+          },
+        };
+        this.loadQueries(getQueries);
+      }
+    });
+  }
+
+  public statusQuery(request: any) {
+    this.http.post(environment.queries, request).subscribe((data) => {
+      console.log(data);
+    });
+  }
+
+  public getReport(request: any) {
+    let fileName = `${this.projectName}_${request.client}_${this.datepipe.transform(request.date_from, 'dd.MM.yyyy')}-${this.datepipe.transform(request.date_along, 'dd.MM.yyyy')}.csv`;
+    console.log(fileName);
+    this.http
+      .post(environment.queries, request)
+      .subscribe((data: QueryTemplate[]) => {
+        let onLoad = data.map((query: QueryTemplate) => {
+          return `${this.datepipe.transform(query.body.date, 'dd.MM.yyyy')};${query.body.term};${query.body.query};${query.body.query_id};${query.body.servicies
+            .map((ser: QueryService) => {
+              return `${ser.service_name}: ${ser.comment}`;
+            })
+            .join(',')}`;
+        });
+        let csv = ["Дата запиту;Тип;Назва/Ім'я;ЄДРПОУ/ІПН;Послуги", ...onLoad].join("\r\n")
+        console.log(csv);
+        var blob = new Blob([csv], {type: 'text/plain;charset=cp1252' })
+        saveAs(blob, fileName);
+      });
+  }
 }

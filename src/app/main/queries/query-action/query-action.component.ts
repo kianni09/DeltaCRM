@@ -1,23 +1,16 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LogginService } from 'src/app/loggin/loggin.service';
 import { MainService } from '../../main.service';
-import {
-  Query,
-  QueryRow,
-  Service,
-  Client,
-} from '../../main.models';
+import { Query, QueryRow, Service, Client, QueryService } from '../../main.models';
 import { Subscription } from 'rxjs';
-import { DateAdapter } from "@angular/material/core";
-import { CustomDateAdapter } from "../../CustomDateAdapter";
+import { DateAdapter } from '@angular/material/core';
+import { CustomDateAdapter } from '../../CustomDateAdapter';
 
 @Component({
   selector: 'query-action',
   templateUrl: './query-action.component.html',
   styleUrls: ['../../main.component.scss'],
-  providers: [
-    { provide: DateAdapter, useClass: CustomDateAdapter }
-  ],
+  providers: [{ provide: DateAdapter, useClass: CustomDateAdapter }],
 })
 export class QueryActionComponent implements OnInit, OnDestroy {
   get userID(): string {
@@ -28,12 +21,8 @@ export class QueryActionComponent implements OnInit, OnDestroy {
     return this.mainService.projectID;
   }
 
-  get queryTypes (): string[] {
+  get queryTypes(): string[] {
     return ['Терміновий', 'Стандарт'];
-  }
-
-  get query(): QueryRow {
-    return this.mainService.selectedQuery;
   }
 
   public servicies: Service[] = [];
@@ -66,18 +55,18 @@ export class QueryActionComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.servicesSubscriber = this.mainService.getServicies$.asObservable().subscribe(
-      (data: Service[]) => {
+    this.servicesSubscriber = this.mainService.getServicies$
+      .asObservable()
+      .subscribe((data: Service[]) => {
         this.servicies = data;
         console.log('servicies');
-      }
-    );
-    this.clientsSubscriber = this.mainService.getClients$.asObservable().subscribe(
-      (data: Client[]) => {
+      });
+    this.clientsSubscriber = this.mainService.getClients$
+      .asObservable()
+      .subscribe((data: Client[]) => {
         this.clients = data;
         console.log('clients');
-      }
-    );
+      });
     if (this.selectedQuery) {
       this.queryBody.date = this.selectedQuery.date;
       this.queryBody.term = this.selectedQuery.term;
@@ -85,7 +74,7 @@ export class QueryActionComponent implements OnInit, OnDestroy {
       console.log(this.queryBody.client_name);
       this.queryBody.query = this.selectedQuery.query;
       this.queryBody.query_id = this.selectedQuery.query_id;
-      this.queryBody.servicies = this.selectedQuery.servicies;
+      this.queryBody.servicies = [...this.selectedQuery.servicies];
       this.queryBody.status = this.selectedQuery.status;
     }
   }
@@ -95,11 +84,48 @@ export class QueryActionComponent implements OnInit, OnDestroy {
     this.clientsSubscriber.unsubscribe();
   }
 
-  public save() {}
+  public save() {
+    let request;
+    if (this.selectedQuery) {
+      request = {
+        user_id: this.userID,
+        id: this.selectedQuery.id,
+        update: true,
+        body: this.queryBody
+      }
+    } else {
+      request = {
+        user_id: this.userID,
+        create: true,
+        body: this.queryBody
+      }
+    }
+    this.mainService.actionQuery(request);
+    this.close();
+  }
 
   public close() {
     this.mainService.blurTemplate = false;
     this.mainService.windowsAction.query = false;
     this.mainService.selectedQuery = undefined;
+  }
+
+  public serviceAction: boolean = false;
+  public serviceName: string = '';
+  public serviceComment: string = '';
+
+  public serviceAdd () {
+    let service: QueryService = {
+      service_name: this.serviceName,
+      comment: this.serviceComment,
+    };
+    this.queryBody.servicies.push(service);
+    this.serviceClose();
+  }
+
+  public serviceClose () {
+    this.serviceComment = ""
+    this.serviceName = "";
+    this.serviceAction = false;
   }
 }

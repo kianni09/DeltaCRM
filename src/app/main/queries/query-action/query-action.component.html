@@ -49,20 +49,54 @@
         <div class="query-servicies">
             <div class="head">
                 <div class="text">Послуги</div>
-                <mat-icon class="icon">add</mat-icon>
+                <mat-icon class="icon" (click)="serviceAction = true">add</mat-icon>
             </div>
             <div class="body">
-                <div *ngFor="let service of queryBody.servicies" class="label">
+                <div *ngFor="let service of queryBody.servicies; let i=index" class="label">
                     <div class="text-block">
                         <div>{{service.service_name}}</div>
                         <div>{{service.comment}}</div>
                     </div>
-                    <mat-icon class="icon" (click)=" $event.stopPropagation()">delete</mat-icon>
+                    <mat-icon class="icon" (click)="queryBody.servicies.splice(i, 1); $event.stopPropagation()">delete</mat-icon>
                 </div>
 
             </div>
 
         </div>
+    </div>
+
+    <div *ngIf="serviceAction" class="service-background">
+
+        <div class="service-action">
+
+            <div class="neo-container-head">
+                <div class="header-text">Додати послугу</div>
+                <div class="header-icons">
+                    <mat-icon class="icon" (click)="serviceAdd ()">save</mat-icon>
+                    <mat-icon class="icon" (click)="serviceClose ()">clear</mat-icon>
+                </div>
+            </div>
+
+            <div class="neo-container-body">
+
+                <mat-form-field class="block-element">
+                    <mat-label class="element-name">Послуга</mat-label>
+                    <mat-select class="element-input" [(value)]="serviceName">
+                        <mat-option *ngFor="let service of servicies" [value]="service.name">
+                            {{service.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="block-element">
+                    <mat-label class="element-name">Коментарій</mat-label>
+                    <input class="element-input" matInput [(ngModel)]="serviceComment">
+                </mat-form-field>
+
+            </div>
+
+        </div>
+
     </div>
 
 </div>

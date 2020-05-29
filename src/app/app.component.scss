@@ -305,4 +305,7 @@ $custom-typography: mat-typography-config( $font-family: 'Montserrat');
         background: linear-gradient(145deg, #ffffff, #e6e6e6);
         border: 1px solid rgba(0, 0, 0, 0.1);
     }
+    &:hover {
+        box-shadow: 4px 4px 8px #d9d9d9, -4px -4px 8px #ffffff;
+    }
 }

@@ -6,7 +6,7 @@
                 <mat-label class="element-name">Пошук по проекту</mat-label>
                 <input class="element-input" matInput [(ngModel)]="dataTable.searchValue" (ngModelChange)="dataTable.OnSearchInit.next($event)">
             </mat-form-field>
-            <mat-icon class="projects-head-servicies-icon">save_alt</mat-icon>
+            <mat-icon class="projects-head-servicies-icon" (click)="getReport()">save_alt</mat-icon>
         </div>
 
         <div class="table-head">
@@ -58,10 +58,10 @@
             </div>
             <div class="row-buttons">
                 <div class="table-row-cell-label">Статус</div>
-                <div class="status-switcher" (click)="row.status = !row.status; $event.stopPropagation()" [ngStyle]="row.status?{'flex-direction': 'row-reverse', 'background-color':'#1f4386'}:{'flex-direction': 'row', 'background-color':'rgba(255, 255, 255, 0.3)'}">
+                <div class="status-switcher" (click)="statusChange(row); $event.stopPropagation()" [ngStyle]="row.status?{'flex-direction': 'row-reverse', 'background-color':'#1f4386'}:{'flex-direction': 'row', 'background-color':'rgba(255, 255, 255, 0.3)'}">
                     <div class="point"></div>
                 </div>
-                <mat-icon class="delete-icon" (click)=" $event.stopPropagation()">delete</mat-icon>
+                <mat-icon class="delete-icon" (click)="delete(row); $event.stopPropagation()">delete</mat-icon>
 
             </div>
         </div>
