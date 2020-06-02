@@ -13,6 +13,7 @@ import {
 } from './main.models';
 import { DatePipe } from '@angular/common';
 import { saveAs } from 'file-saver';
+import * as windows1251 from 'windows-1251';
 
 @Injectable({
   providedIn: 'root',
@@ -184,14 +185,24 @@ export class MainService {
       'dd.MM.yyyy'
     )}-${this.datepipe.transform(request.date_along, 'dd.MM.yyyy')}.csv`;
     console.log(fileName);
-    let r = {...request, file_name: fileName};
     this.http
-      .post(environment.queries, r)
-      .subscribe((result: boolean) => {
-        console.log(result)
-        if (result) {
-          window.open(environment.download + fileName);
-        }
+      .post(environment.queries, request)
+      .subscribe((data: QueryTemplate[]) => {
+        let onLoad = data.map((query: QueryTemplate) => {
+          return `${this.datepipe.transform(query.body.date, 'dd.MM.yyyy')};${
+            query.body.term
+          };${query.body.query};${query.body.query_id};${query.body.servicies
+            .map((ser: QueryService) => {
+              return `${ser.service_name}: ${ser.comment}`;
+            })
+            .join(',')}`;
+        });
+        let csv = [
+          "Дата запиту;Тип;Назва/Ім'я;ЄДРПОУ/ІПН;Послуги",
+          ...onLoad,
+        ].join('\r\n');
+        var blob = new Blob([csv], { type: 'text/plain;charset=cp1251' });
+        saveAs(blob, fileName);
       });
   }
 

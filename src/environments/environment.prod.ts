@@ -7,6 +7,5 @@ export const environment = {
   clients: link + "clients/",
   servicies: link + "servicies/",
   queries: link + "queries/",
-  download: link + "download/"
 
 };
