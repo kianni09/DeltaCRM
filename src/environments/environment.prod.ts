@@ -8,5 +8,4 @@ export const environment = {
   servicies: link + "servicies/",
   queries: link + "queries/",
   download: link + "download/"
-
 };
