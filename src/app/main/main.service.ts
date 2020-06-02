@@ -191,6 +191,7 @@ export class MainService {
         console.log(result)
         if (result) {
           window.open(environment.download + fileName);
+          
         }
       });
   }
