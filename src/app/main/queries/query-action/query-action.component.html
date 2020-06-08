@@ -1,9 +1,9 @@
-<div class="query-action-container">
+<div [ngStyle]="selectedQuery?{'height': '500px'}:{'height': '580px'}" class="query-action-container">
 
     <div class="neo-container-head">
         <div class="header-text">{{selectedQuery?'Редагувати запит':'Новий запит'}}</div>
         <div class="header-icons">
-            <mat-icon class="icon" (click)="save()">save</mat-icon>
+            <mat-icon class="icon" (click)="multiLoader?multiSave():save()">save</mat-icon>
             <mat-icon class="icon" (click)="close()">clear</mat-icon>
         </div>
     </div>
@@ -38,12 +38,12 @@
 
             <mat-form-field class="block-element">
                 <mat-label class="element-name">Назва/Ім'я</mat-label>
-                <input class="element-input" matInput [(ngModel)]="queryBody.query">
+                <input class="element-input" matInput [(ngModel)]="queryBody.query" [disabled]="multiLoader">
             </mat-form-field>
 
             <mat-form-field class="block-element">
                 <mat-label class="element-name">ЄДРПОУ/ІПН</mat-label>
-                <input class="element-input" matInput [(ngModel)]="queryBody.query_id">
+                <input class="element-input" matInput [(ngModel)]="queryBody.query_id" [disabled]="multiLoader">
             </mat-form-field>
         </div>
         <div class="query-servicies">
@@ -63,6 +63,24 @@
             </div>
 
         </div>
+    </div>
+
+    <div *ngIf="!selectedQuery" class="queries-file-loader">
+        <div class="switcher" (click)="multiLoader = !multiLoader">
+            <div class="status-switcher" [ngStyle]="multiLoader?{'flex-direction': 'row-reverse', 'background-color':'#1f4386'}:{'flex-direction': 'row', 'background-color':'rgba(255, 255, 255, 0.3)'}">
+                <div class="point"></div>
+            </div>
+            <div class="label">
+                Мульті-загрузка
+            </div>
+        </div>
+
+        <div *ngIf="multiLoader" class="file-input">
+            <div *ngIf="fileSelected" class="file-selected">{{fileSelected}}</div>
+            <label class="label" for="file">Оберіть CSV файл</label>
+            <input id="file" (change)="fileEvent($event.target.files)" type="file" accept=".csv">
+        </div>
+
     </div>
 
     <div *ngIf="serviceAction" class="service-background">

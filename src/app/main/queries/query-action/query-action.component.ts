@@ -1,7 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { LogginService } from 'src/app/loggin/loggin.service';
 import { MainService } from '../../main.service';
-import { Query, QueryRow, Service, Client, QueryService } from '../../main.models';
+import {
+  Query,
+  QueryRow,
+  Service,
+  Client,
+  QueryService,
+} from '../../main.models';
 import { Subscription } from 'rxjs';
 import { DateAdapter } from '@angular/material/core';
 import { CustomDateAdapter } from '../../CustomDateAdapter';
@@ -84,6 +90,55 @@ export class QueryActionComponent implements OnInit, OnDestroy {
     this.clientsSubscriber.unsubscribe();
   }
 
+  public multiLoader: boolean = false;
+  public fileSelected: string = '';
+  public fileQueries: Query[] = [];
+
+  public fileEvent(fileList: FileList) {
+
+    let multiQueries = (data: string[][]) => {
+      this.fileQueries = data.map( (row) => {
+        let query = { ...this.queryBody };
+        query.query = row[0];
+        query.query_id = row[1];
+        console.log(query);
+        return query;
+      } )
+    };
+
+    let file = fileList[0];
+    this.fileSelected = file.name;
+    let fileReader: FileReader = new FileReader();
+
+    fileReader.onloadend = function (x) {
+      let textArray = fileReader.result
+        .toString()
+        .split('\n')
+        .map((row) => {
+          return row.split(';');
+        });
+      textArray = textArray.filter((row) => {
+        return row.length > 1;
+      });
+      multiQueries (textArray);
+    };
+    fileReader.readAsText(file, 'CP1251');
+  }
+
+  public multiSave () {
+    for (let query of this.fileQueries) {
+      this.mainService.windowsAction.query = false;
+      this.mainService.onDataLoad = true;
+      let request = {
+        user_id: this.userID,
+        create: true,
+        body: query,
+      };
+      this.mainService.actionQuery(request);
+    }
+    this.close();
+  }
+
   public save() {
     let request;
     if (this.selectedQuery) {
@@ -91,14 +146,14 @@ export class QueryActionComponent implements OnInit, OnDestroy {
         user_id: this.userID,
         id: this.selectedQuery.id,
         update: true,
-        body: this.queryBody
-      }
+        body: this.queryBody,
+      };
     } else {
       request = {
         user_id: this.userID,
         create: true,
-        body: this.queryBody
-      }
+        body: this.queryBody,
+      };
     }
     this.mainService.actionQuery(request);
     this.close();
@@ -108,13 +163,14 @@ export class QueryActionComponent implements OnInit, OnDestroy {
     this.mainService.blurTemplate = false;
     this.mainService.windowsAction.query = false;
     this.mainService.selectedQuery = undefined;
+    this.mainService.onDataLoad = false;
   }
 
   public serviceAction: boolean = false;
   public serviceName: string = '';
   public serviceComment: string = '';
 
-  public serviceAdd () {
+  public serviceAdd() {
     let service: QueryService = {
       service_name: this.serviceName,
       comment: this.serviceComment,
@@ -123,9 +179,9 @@ export class QueryActionComponent implements OnInit, OnDestroy {
     this.serviceClose();
   }
 
-  public serviceClose () {
-    this.serviceComment = ""
-    this.serviceName = "";
+  public serviceClose() {
+    this.serviceComment = '';
+    this.serviceName = '';
     this.serviceAction = false;
   }
 }

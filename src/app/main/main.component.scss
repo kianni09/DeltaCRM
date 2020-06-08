@@ -440,6 +440,55 @@
             }
         }
     }
+    .queries-file-loader {
+        @include line-center;
+        justify-content: space-between;
+        width: calc(100% - 40px);
+        height: 40px;
+        padding: 20px 0px;
+        margin: 0px 20px;
+        border-top: 1px solid rgba(0, 0, 0, 0.4);
+        .switcher {
+            @include line-center;
+            justify-content: space-between;
+            width: 27%;
+            cursor: pointer;
+            .status-switcher {
+                margin-bottom: 0px;
+            }
+            .label {
+                font-size: 22px;
+            }
+        }
+        .file-input {
+            @include line-center;
+            justify-content: space-between;
+            position: relative;
+            .file-selected {
+                font-size: 15px;
+                padding: 5px;
+                border-bottom: 2px solid #1f4386;
+            }
+            .label {
+                font-size: 15px;
+                padding: 5px;
+                border: 1px solid #1f4386;
+                border-radius: 3px;
+                color: #1f4386;
+                margin-left: 10px;
+                cursor: pointer;
+                &:hover {
+                    color: white;
+                    background-color: #1f4386;
+                }
+            }
+            #file {
+                position: absolute;
+                visibility: hidden;
+                z-index: -100;
+            }
+        }
+    }
 }
 
 .report-action {
