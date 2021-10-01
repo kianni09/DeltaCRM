@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class CustomDateAdapter extends NativeDateAdapter {
     format(date: Date, displayFormat: Object): string {
-        moment.locale('ru-RU'); 
+        moment.locale('uk');
         var formatString = 'DD.MM.YYYY';
         return moment(date).format(formatString);
     }

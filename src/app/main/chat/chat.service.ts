@@ -7,7 +7,7 @@ import { Message } from '../main.models';
   providedIn: 'root',
 })
 export class ChatService {
-  private url = 'http://95.181.178.7:9020';
+  private url = 'http://46.253.132.73:9020';
   private socket = io(this.url, { transport: ['websocket'] });
 
   constructor() {}
