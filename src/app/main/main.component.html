@@ -1,0 +1,39 @@
+<div class="main-root">
+
+    <div class="main-head">
+        <div class="main-head-block">
+            <div class="main-head-logo">
+                <i class="fa fa-ravelry" style="font-size:40px; color:white; margin-right: 20px;"></i>
+                <div>Управління корпоративними ризиками | Delta M</div>
+            </div>
+            <div class="main-head-account">
+                <div class="main-head-user" (click)="openChat()">
+                    <div class="user-notification-block">
+                        <i class="fa fa-user" style="font-size:36px; color:white; margin-right: 15px;"></i>
+                        <div *ngIf="newMessages" class="notification-cicle">
+                            <mat-icon class="icon">notifications_none</mat-icon>
+                        </div>
+                    </div>
+                    <div>{{User.name}}</div>
+                </div>
+                <i class="fa fa-sign-out" style="font-size:36px; color:white; cursor: pointer;" (click)="OnExit()"></i>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-card">
+        <projects></projects>
+        <queries style="width: calc(100% - 371px); height: 100%;"></queries>
+    </div>
+
+    <div *ngIf="blurTemplate" class="action-background">
+        <project-action *ngIf="window.project"></project-action>
+        <servicies *ngIf="window.servicies"></servicies>
+        <clients *ngIf="window.clients"></clients>
+        <chat *ngIf="window.chat"></chat>
+        <query-action *ngIf="window.query"></query-action>
+        <report *ngIf="window.report"></report>
+        <i *ngIf="onDataLoad" class="fa fa-spinner fa-pulse" style="color: white; font-size: 100px;"></i>
+    </div>
+
+</div>

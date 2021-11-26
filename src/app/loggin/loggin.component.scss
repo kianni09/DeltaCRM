@@ -1,0 +1,9 @@
+@import '../app.component.scss';
+//Loggin styles
+.loggin-card {
+    @include neo-container;
+    justify-content: space-around;
+    width: 350px;
+    height: 280px;
+    padding: 40px;
+}

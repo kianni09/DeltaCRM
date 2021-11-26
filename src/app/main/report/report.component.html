@@ -1,0 +1,39 @@
+<div class="report-action">
+
+    <div class="neo-container-head">
+        <div class="header-text">Сформувати звіт</div>
+        <div class="header-icons">
+            <mat-icon *ngIf="client" class="icon" (click)="download()">done</mat-icon>
+            <div *ngIf="!client"></div>
+            <mat-icon class="icon" (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+
+    <div class="neo-container-body">
+
+        <mat-form-field class="block-element">
+            <mat-label class="element-name">З</mat-label>
+            <input class="element-input" matInput [matDatepicker]="picker1" [(ngModel)]="dateFrom">
+            <mat-datepicker-toggle matSuffix [for]="picker1" style="font-size: 40px; height: 40px;"></mat-datepicker-toggle>
+            <mat-datepicker #picker1></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="block-element">
+            <mat-label class="element-name">По</mat-label>
+            <input class="element-input" matInput [matDatepicker]="picker2" [(ngModel)]="dateAlong">
+            <mat-datepicker-toggle matSuffix [for]="picker2" style="font-size: 40px; height: 40px;"></mat-datepicker-toggle>
+            <mat-datepicker #picker2></mat-datepicker>
+        </mat-form-field>
+
+        <mat-form-field class="block-element">
+            <mat-label class="element-name">Замовник</mat-label>
+            <mat-select class="element-input" [(value)]="client">
+                <mat-option *ngFor="let client of clients" [value]="client.name">
+                    {{client.name}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+
+    </div>
+
+</div>

@@ -1,0 +1,30 @@
+<div [ngClass]="{ 'servicies-action-list': !clientsStatus, 'servicies-action-create': clientsStatus }">
+
+    <div class="neo-container-head">
+        <div class="header-text">{{clientsStatus?'Додати замовника':project.name+': Замовники'}}</div>
+        <div class="header-icons">
+            <mat-icon *ngIf="!clientsStatus" class="icon" (click)="create()">add</mat-icon>
+            <mat-icon *ngIf="clientsStatus" class="icon" (click)="back()">reply</mat-icon>
+            <mat-icon *ngIf="clientsStatus" class="icon" (click)="save()">save</mat-icon>
+            <mat-icon *ngIf="!clientsStatus" class="icon" (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+
+    <div class="neo-container-body">
+
+        <div *ngIf="!clientsStatus" class="servicies-list">
+            <div *ngFor="let client of clientsData" class="service-label">
+                <span class="label-text">{{client.name}}</span>
+                <mat-icon class="service-icon" (click)="delete(client)">delete</mat-icon>
+
+            </div>
+        </div>
+
+        <mat-form-field *ngIf="clientsStatus" class="block-element">
+            <mat-label class="element-name">Замовник</mat-label>
+            <input class="element-input" matInput [(ngModel)]="clientName">
+        </mat-form-field>
+
+    </div>
+
+</div>

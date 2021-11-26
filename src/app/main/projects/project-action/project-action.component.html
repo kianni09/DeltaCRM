@@ -1,0 +1,18 @@
+<div class="project-action-container">
+
+    <div class="neo-container-head">
+        <div class="header-text">{{headerText}}</div>
+        <div class="header-icons">
+            <mat-icon class="icon" (click)="save()">save</mat-icon>
+            <mat-icon class="icon" (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+
+    <div class="neo-container-body">
+        <mat-form-field class="block-element">
+            <mat-label class="element-name">Назва проекту</mat-label>
+            <input class="element-input" matInput [(ngModel)]="projectName">
+        </mat-form-field>
+    </div>
+
+</div>

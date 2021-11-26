@@ -1,0 +1,120 @@
+<div [ngStyle]="selectedQuery?{'height': '500px'}:{'height': '580px'}" class="query-action-container">
+
+    <div class="neo-container-head">
+        <div class="header-text">{{selectedQuery?'Редагувати запит':'Новий запит'}}</div>
+        <div class="header-icons">
+            <mat-icon class="icon" (click)="multiLoader?multiSave():save()">save</mat-icon>
+            <mat-icon class="icon" (click)="close()">clear</mat-icon>
+        </div>
+    </div>
+
+
+    <div class="neo-container-body">
+        <div class="query-inputs">
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Дата запиту</mat-label>
+                <input class="element-input" matInput [matDatepicker]="picker" [(ngModel)]="queryBody.date">
+                <mat-datepicker-toggle matSuffix [for]="picker" style="font-size: 40px; height: 40px;"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Замовник</mat-label>
+                <mat-select class="element-input" [(value)]="queryBody.client_name">
+                    <mat-option *ngFor="let client of clients" [value]="client.name">
+                        {{client.name}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Тип</mat-label>
+                <mat-select class="element-input" [(value)]="queryBody.term">
+                    <mat-option *ngFor="let type of queryTypes" [value]="type">
+                        {{type}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">Назва/Ім'я</mat-label>
+                <input class="element-input" matInput [(ngModel)]="queryBody.query" [disabled]="multiLoader">
+            </mat-form-field>
+
+            <mat-form-field class="block-element">
+                <mat-label class="element-name">ЄДРПОУ/ІПН</mat-label>
+                <input class="element-input" matInput [(ngModel)]="queryBody.query_id" [disabled]="multiLoader">
+            </mat-form-field>
+        </div>
+        <div class="query-servicies">
+            <div class="head">
+                <div class="text">Послуги</div>
+                <mat-icon class="icon" (click)="serviceAction = true">add</mat-icon>
+            </div>
+            <div class="body">
+                <div *ngFor="let service of queryBody.servicies; let i=index" class="label">
+                    <div class="text-block">
+                        <div>{{service.service_name}}</div>
+                        <div>{{service.comment}}</div>
+                    </div>
+                    <mat-icon class="icon" (click)="queryBody.servicies.splice(i, 1); $event.stopPropagation()">delete</mat-icon>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="!selectedQuery" class="queries-file-loader">
+        <div class="switcher" (click)="multiLoader = !multiLoader">
+            <div class="status-switcher" [ngStyle]="multiLoader?{'flex-direction': 'row-reverse', 'background-color':'#1f4386'}:{'flex-direction': 'row', 'background-color':'rgba(255, 255, 255, 0.3)'}">
+                <div class="point"></div>
+            </div>
+            <div class="label">
+                Мульті-загрузка
+            </div>
+        </div>
+
+        <div *ngIf="multiLoader" class="file-input">
+            <div *ngIf="fileSelected" class="file-selected">{{fileSelected}}</div>
+            <label class="label" for="file">Оберіть CSV файл</label>
+            <input id="file" (change)="fileEvent($event.target.files)" type="file" accept=".csv">
+        </div>
+
+    </div>
+
+    <div *ngIf="serviceAction" class="service-background">
+
+        <div class="service-action">
+
+            <div class="neo-container-head">
+                <div class="header-text">Додати послугу</div>
+                <div class="header-icons">
+                    <mat-icon class="icon" (click)="serviceAdd ()">save</mat-icon>
+                    <mat-icon class="icon" (click)="serviceClose ()">clear</mat-icon>
+                </div>
+            </div>
+
+            <div class="neo-container-body">
+
+                <mat-form-field class="block-element">
+                    <mat-label class="element-name">Послуга</mat-label>
+                    <mat-select class="element-input" [(value)]="serviceName">
+                        <mat-option *ngFor="let service of servicies" [value]="service.name">
+                            {{service.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="block-element">
+                    <mat-label class="element-name">Коментарій</mat-label>
+                    <input class="element-input" matInput [(ngModel)]="serviceComment">
+                </mat-form-field>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
